@@ -1,0 +1,113 @@
+body {
+    background-image: url('../index_files/background.png');
+    color: #ccc;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgb(255, 187, 0); 
+    border-radius: 3px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(255, 187, 0); 
+    border-radius: 2px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #fbff00; 
+  }
+
+.app {
+    margin-top: 5rem;
+    display: flex;
+    justify-content: center;
+    font-variant: small-caps;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.wrap {
+    width: 300px;
+}
+
+.select {
+    width: 100%;
+    position: relative;
+    
+}
+
+.select .input{
+    border: 1px solid rgb(255, 187, 0);
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.05);
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    color: rgb(255, 187, 0);
+}
+.select.open .input{
+   border-bottom: none;
+}
+
+.select .dropdown {
+    display: none;
+    position: absolute;
+    top: 37px;
+    left: 0;
+    right: 0;
+    border: 1px solid rgb(255, 187, 0);
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.05);
+    height: 200px;
+    justify-content: center;
+    align-items: center;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 5px 5px rgba(255, 187, 0, 0.4);
+    backdrop-filter: blur(10px);
+    
+}
+.select.open .dropdown {
+    display: flex;
+    border-top: none;
+    
+}
+.select__list {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+    width: 95%;
+    position: absolute;
+    top: 0;
+    text-align: center;
+    padding-bottom: 0.5rem;
+}
+.select__item {
+    padding: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    cursor: pointer; 
+}
+.select__item.selected {
+    background: rgb(255, 187, 0);
+    color: black;
+}
+.select__item:hover {
+    background: rgb(255, 187, 0);
+    color: black;
+    transition: .2s;
+}
+.arricon{
+   position: absolute;
+   right: 15px; 
+}
