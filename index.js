@@ -4,6 +4,7 @@ import './select/style.css'
 
 const select = new Select('#select', {
     placeholder: 'select item',
+    selectedId: '1li',
     data: [
         {id: '1li', value: 'item one'},
         {id: '2li', value: 'item two'},
@@ -14,7 +15,10 @@ const select = new Select('#select', {
         {id: '7li', value: 'item seven'},
         {id: '8li', value: 'item eight'},
         {id: '9li', value: 'item nine'}
-    ]
+    ],
+    onSelect(item) {
+        console.log(item)
+    }
 }) 
 
 window.s = select

@@ -40,6 +40,7 @@ body {
 .select {
     width: 100%;
     position: relative;
+    z-index: 100;
     
 }
 
@@ -56,13 +57,12 @@ body {
     color: rgb(255, 187, 0);
 }
 .select.open .input{
-   border-bottom: none;
+    cursor: pointer;
 }
-
 .select .dropdown {
     display: none;
     position: absolute;
-    top: 37px;
+    top: 42px;
     left: 0;
     right: 0;
     border: 1px solid rgb(255, 187, 0);
@@ -79,7 +79,7 @@ body {
 }
 .select.open .dropdown {
     display: flex;
-    border-top: none;
+    
     
 }
 .select__list {
@@ -91,12 +91,14 @@ body {
     top: 0;
     text-align: center;
     padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
 }
 .select__item {
     padding: 0.5rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 5px;
-    cursor: pointer; 
+    cursor: pointer;
+    margin-bottom: 3px; 
 }
 .select__item.selected {
     background: rgb(255, 187, 0);
@@ -110,4 +112,17 @@ body {
 .arricon{
    position: absolute;
    right: 15px; 
+}
+.close__backdrop{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: transparent;
+    z-index: -1;
+    display: none;
+}
+.select.open .close__backdrop{
+    display: block;
 }

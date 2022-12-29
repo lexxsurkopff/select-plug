@@ -536,6 +536,7 @@ var _select = require("./select/select");
 var _styleCss = require("./select/style.css");
 const select = new (0, _select.Select)("#select", {
     placeholder: "select item",
+    selectedId: "1li",
     data: [
         {
             id: "1li",
@@ -573,7 +574,10 @@ const select = new (0, _select.Select)("#select", {
             id: "9li",
             value: "item nine"
         }
-    ]
+    ],
+    onSelect (item) {
+        console.log(item);
+    }
 });
 window.s = select;
 
@@ -581,13 +585,15 @@ window.s = select;
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Select", ()=>Select);
-const getTemplate = (data = [], placeholder)=>{
-    const text = placeholder ?? "default placeholder";
+const getTemplate = (data = [], placeholder, selectedId)=>{
+    let text = placeholder ?? "default placeholder";
     const lihtml = data.map((item)=>{
+        if (item.id === selectedId) text = item.value;
         return `<li class="select__item" data-type="item" data-id="${item.id}">${item.value}</li>`;
     });
     return `
-    <div class="input" data-type="input"><span>${text}</span><div class="arricon"><i class="fa-solid fa-caret-down"></i></div></div>
+   <div class="close__backdrop" data-type="close"></div>
+    <div class="input" data-type="input"><span data-type="input">${text}</span><div class="arricon"><i class="fa-solid fa-caret-down" data-type="input"></i></div></div>
             <div class="dropdown">
                <ul class="select__list">
                  ${lihtml.join("")} 
@@ -599,14 +605,14 @@ class Select {
     constructor(selector, options){
         this.$el = document.querySelector(selector);
         this.options = options;
-        this.selectedId = null;
+        this.selectedId = options.selectedId;
         this.#render();
         this.#setup();
     }
     #render() {
         const { placeholder , data  } = this.options;
         this.$el.classList.add("select");
-        this.$el.innerHTML = getTemplate(data, placeholder);
+        this.$el.innerHTML = getTemplate(data, placeholder, this.selectedId);
     }
     #setup() {
         this.clickHandler = this.clickHandler.bind(this);
@@ -620,7 +626,7 @@ class Select {
         else if (type === "item") {
             const id = event.target.dataset.id;
             this.select(id);
-        }
+        } else if (type === "close") this.close();
     }
     get isOpen() {
         return this.$el.classList.contains("open");
@@ -635,6 +641,7 @@ class Select {
             el.classList.remove("selected");
         });
         this.$el.querySelector(`[data-id="${id}"]`).classList.add("selected");
+        this.options.onSelect && this.options.onSelect(this.current);
         this.close();
     }
     toggle() {
@@ -652,6 +659,7 @@ class Select {
     }
     destroy() {
         this.$el.removeEventListener("click", this.clickHandler);
+        this.$el.innerHTML = "";
     }
 }
 
